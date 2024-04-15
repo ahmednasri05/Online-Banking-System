@@ -1,8 +1,17 @@
 const express = require("express");
 const app = express();
-app.get("/", function (req, res) {
-    res.sendFile(__dirname + "/HTML/login.html");
+
+
+app.use(express.static("public"));
+
+
+app.get("/login", function (req, res) {
+    res.sendFile(__dirname + "/public/HTML/login.html");
 });
-app.listen(3000, function () {
-    console.log("Server is running on localhost3000");
+
+app.get("/home", function (req, res) {
+    res.sendFile(__dirname + "/public/HTML/home.html");
+});
+app.listen(3002, function () {
+    console.log("Server is running on localhost3002");
 });

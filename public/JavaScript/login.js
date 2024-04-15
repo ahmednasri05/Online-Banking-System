@@ -9,12 +9,12 @@ function login() {
     // Retrieve the username and password from the form
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
-
+    console.log("Hello")
     //Prevent sending empty inputs
     if (username == "" || password=="") {
         {alert("Please enter valid data")}
     }
-    
+
     //Assume this is the retrived user info from database
     const user1 = new User("Hady Aziz", "1234");
 
@@ -23,9 +23,14 @@ function login() {
         console.log("Password:", password);
 
         //Redirect to home page
-        window.location.href = "home.html";
+        window.location.href = "home";
     } else {
         alert("Invalid username or password");
     }
    
 }
+
+// export default function login() {
+//     console.log('Login function executed');
+//     // Your login logic here
+// }
