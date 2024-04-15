@@ -1,0 +1,63 @@
+
+.table-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust as needed */
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 10px; /* Adjust this value as needed */
+}
+
+td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.send-card,
+.view-card,
+.saving-card {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #e3e1e1;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    justify-content: center;
+}
+
+
+
+ .view-button button,.send-button button, .saving-button button {
+    background-color: #181818;
+    color: #fefefe;
+    border: none;
+    border-radius: 20px;
+    padding: 7px 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    margin-top: 7px;
+  }
+
+  .send-card-details h3, .view-card-details h3,
+  .saving-card-details h3 { /*Product name*/
+    font-size: 16px;
+    font-family: 'courier new';
+    font-weight: bold;
+    margin-bottom: 6px;
+    margin-top: 3px;
+    text-align: center;
+  }
+  
+ 
+  .send-card-image {
+    max-width: 100%; /* Ensure the image doesn't exceed the width of its container */
+    max-height: 100%; /* Ensure the image doesn't exceed the height of its container */
+    display: block; /* Prevents any additional whitespace below the image */
+    margin-bottom: 5px;
+}
+
+
