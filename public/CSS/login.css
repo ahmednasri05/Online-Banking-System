@@ -41,9 +41,22 @@ input[type="text"] { /*input boxes*/
 }
 
 button {
-    background-color: #eee8e8; /* Set signup button background color */
+    background-color: #ffffff; /* Set signup button background color */
     color: #000000; /* Set signup button text color */
     border: 1px solid #000000; 
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #274a70;
+}
+
+.button-sign button {
+    margin-top:15px;
+    background-color: #000000;
+    color: #ffffff;
     width: 100%;
     padding: 10px;
     border-radius: 5px;

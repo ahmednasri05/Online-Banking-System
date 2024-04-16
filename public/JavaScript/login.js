@@ -23,10 +23,16 @@ function login() {
         console.log("Password:", password);
 
         //Redirect to home page
-        window.location.href = "home";
+        window.location.href = "template";
     } else {
         alert("Invalid username or password");
     }
+   
+}
+
+function signup() {
+    // Retrieve the username and password from the form
+    console.log("HEY")
    
 }
 
