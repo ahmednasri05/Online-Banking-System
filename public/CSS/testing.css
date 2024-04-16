@@ -8,8 +8,8 @@
     --c-gray-300: #ffffff;
     --c-gray-200: #f1f1f1;
     --c-gray-100: #ffffff;
-    --c-green-500: #ffffff;
-    --c-olive-500: #ffffff;
+    --c-green-500: #45ffbc;
+    --c-olive-500: #e3ffa8;
     --c-white: var(--c-gray-100);
     --c-text-primary: var(--c-gray-100);
     --c-text-secondary: var(--c-gray-200);
@@ -204,17 +204,18 @@
     box-shadow: 0 0 0 2px var(--c-gray-800), 0 0 0 4px var(--c-olive-500);
   }
   .tile:nth-child(2) {
-    background-color: var(--c-green-500);
+    background-color:  #45ffbc;
   }
   .tile:nth-child(2):focus-within {
     box-shadow: 0 0 0 2px var(--c-gray-800), 0 0 0 4px var(--c-green-500);
   }
   .tile:nth-child(3) {
-    background-color: var(--c-gray-300);
+    background-color: #7e2472;
   }
   .tile:nth-child(3):focus-within {
-    box-shadow: 0 0 0 2px var(--c-gray-800), 0 0 0 4px var(--c-gray-300);
+    box-shadow: 0 0 0 2px var(#7e2472), 0 0 0 4px var(#7e2472);
   }
+ 
   .tile a {
     text-decoration: none;
     display: flex;
@@ -288,4 +289,29 @@
     color: var(--c-text-tertiary);
     margin-top: 1rem;
   }
-  
+  .icon-button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: 1px solid var(--c-gray-500);
+    color: var(--c-text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.25s ease;
+    flex-shrink: 0;
+  }
+  .icon-button.large {
+    width: 42px;
+    height: 42px;
+    font-size: 1.25em;
+  }
+  .icon-button i {
+    transition: 0.25s ease;
+  }
+  .icon-button:hover, .icon-button:focus {
+    background-color: var(--c-gray-600);
+    box-shadow: 0 0 0 4px var(--c-gray-800), 0 0 0 5px var(--c-text-tertiary);
+  }
