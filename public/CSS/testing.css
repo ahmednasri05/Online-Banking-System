@@ -204,16 +204,16 @@
     box-shadow: 0 0 0 2px var(--c-gray-800), 0 0 0 4px var(--c-olive-500);
   }
   .tile:nth-child(2) {
-    background-color:  #45ffbc;
+    background-color:  #b3efec;
   }
   .tile:nth-child(2):focus-within {
     box-shadow: 0 0 0 2px var(--c-gray-800), 0 0 0 4px var(--c-green-500);
   }
   .tile:nth-child(3) {
-    background-color: #7e2472;
+    background-color: #c45fb6;
   }
   .tile:nth-child(3):focus-within {
-    box-shadow: 0 0 0 2px var(#7e2472), 0 0 0 4px var(#7e2472);
+    box-shadow: 0 0 0 2px S#c45fb6, 0 0 0 4px#c45fb6;
   }
  
   .tile a {
