@@ -21,6 +21,6 @@ app.get("/signup", function (req, res) {
     res.sendFile(__dirname + "/public/HTML/signup.html");
 });
 
-app.listen(3002, function () {
-    console.log("Server is running on localhost3002");
+app.listen(3005, function () {
+    console.log("Server is running on localhost3005");
 });
