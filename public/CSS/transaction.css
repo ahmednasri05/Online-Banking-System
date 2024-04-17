@@ -12,6 +12,21 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+.custom-icon {
+    position: absolute;
+    top: 20px; /* Adjust as needed */
+    left: 20px; /* Adjust as needed */
+    z-index: 9999; /* Ensure the icon appears above other content */
+    cursor: pointer;
+}
+
+.custom-icon img {
+    width: 40px; /* Adjust the size of the icon */
+    height: 40px; /* Adjust the size of the icon */
+    border-radius: 50%; /* Make the image circular */
+    border: 2px solid #fff; /* Add a border around the image */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Add a shadow effect */
+}
 h1 {
     text-align: center;
     color: #333;
