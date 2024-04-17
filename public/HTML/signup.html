@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login | Online Banking Website</title>
+        <link href="../CSS/signup.css" rel="stylesheet">
+        <script src="../JavaScript/login.js"></script>
+    </head>
+<body>
+    <div>
+        <h1 className="title">Online Banking System</h1>
+        <div class="container">
+            <h2>Create Account</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">email:</label>
+                    <input type="text" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="text" id="password" name="password" required>
+                </div>
+                <button type="button" onclick="createAccount()">Create Account</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

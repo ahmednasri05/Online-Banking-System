@@ -1,0 +1,67 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+.container { /*The whole login container*/
+    border:1px solid #000000;
+    max-width: 400px;
+    margin: 100px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 { /*The word Login*/
+    text-align: center;
+}
+
+h2 { /*The word Login*/
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.form-group { /*Elements inside login card*/
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"] { /*input boxes*/
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #8c8b8b; /* Set signup button background color */
+    color: #000000; /* Set signup button text color */
+    border: 1px solid #000000; 
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #274a70;
+}
+
+.button-sign button {
+    margin-top:15px;
+    background-color: #000000;
+    color: #ffffff;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #274a70;
+}
