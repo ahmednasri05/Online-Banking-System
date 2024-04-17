@@ -9,8 +9,13 @@
   --c-gray-300: #ffffff;
   --c-gray-200: #f1f1f1;
   --c-gray-100: #ffffff;
-  --c-green-500: #ffffff;
-  --c-olive-500: #ffffff;
+  --c-green-500: #45ffbc;
+  --c-olive-500: #e3ffa8;
+
+  --c-white: var(--c-gray-100);
+  --c-text-primary: var(--c-gray-100);
+  --c-text-secondary: var(--c-gray-200);
+  --c-text-tertiary: var(--c-gray-500);
   --c-white: var(--c-gray-100);
   --c-text-primary: var(--c-gray-100);
   --c-text-secondary: var(--c-gray-200);
