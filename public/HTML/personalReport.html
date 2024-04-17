@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Financial Dashboard</title>
+<link rel="stylesheet" type="text/css" href="../CSS/personalReport.css">
+</head>
+<body>
+    <a href="template.html" class="custom-icon">
+        <!-- You can use an image or any other HTML element for your custom icon -->
+        <img src="../back.jpeg" alt="Custom Icon">
+    </a>
+<div class="header">
+    <h1>Welcome, <span id="username"></span>!</h1>
+    <h2>Current Balance: $<span id="balance"></span></h2>
+</div>
+<div class="container">
+    <h2>Transaction History:</h2>
+    <div id="transactionContainer" class="transaction-container">
+        <!-- Transaction items will be added dynamically here -->
+    </div>
+</div>
+<script src="../JavaScript/personalReport.js"></script>
+</body>
+</html>
