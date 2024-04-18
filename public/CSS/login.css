@@ -65,3 +65,11 @@ button:hover {
 button:hover {
     background-color: #274a70;
 }
+#password{
+    width: 350px;
+    padding: 10px 15px 10px 35px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: block;
+    margin-bottom: 5px;
+}

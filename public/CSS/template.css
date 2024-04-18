@@ -431,17 +431,7 @@ a {
   }
 }
 
-.service-section-footer {
-  position: relative; /* Ensure relative positioning for proper placement */
-  min-height: 100vh; /* Ensure the div fills at least the viewport height */
-}
 
-.service-section-footer p {
-  position: absolute;
-  bottom: 100px; /* Adjust as needed */
-  left: 100px; /* Adjust as needed */
-  margin: 0;
-}
 
 
 .search-field {
