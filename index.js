@@ -48,6 +48,10 @@ app.get("/personal/report", function (req, res) {
     res.sendFile(__dirname + "/public/HTML/personalReport.html");
 });
 
+app.get("/customer/support", function (req, res) {
+    res.sendFile(__dirname + "/public/HTML/customerSupp.html");
+});
+
 app.listen(3005, function () {
     console.log("Server is running on localhost3005");
 });
