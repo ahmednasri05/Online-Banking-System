@@ -32,7 +32,7 @@ app.get("/home", function (req, res) {
     res.sendFile(__dirname + "/public/HTML/home.html");
 });
 
-app.get("/template", authenticate, function (req, res) {
+app.get("/template", function (req, res) {
     res.sendFile(__dirname + "/public/HTML/template.html");
 });
 

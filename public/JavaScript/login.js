@@ -30,25 +30,6 @@ function login() {
     body: raw,
     redirect: "follow"
     };
-
-    fetch("http://localhost:8080/api/users/login", requestOptions)
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error('Failed to login');
-        }
-        return response.json(); // Parse response body as JSON
-    })
-    .then((data) => {
-        const token = data.token; // Extract token from response data
-        if (!token) {
-            throw new Error('Token not found in response');
-        }
-        // Cache the token in local storage
-        localStorage.setItem('token', token);
-        console.log("Token:", date.headers['x-auth-token']);
-    })
-    .catch((error) => console.error(error));
-
     const templateRequestOptions = {
         method: "GET",
         headers: {
@@ -57,17 +38,27 @@ function login() {
         }
     };
 
-    return fetch("http://localhost:3005/template", templateRequestOptions)
+    fetch("http://52.158.43.53:8080/api/users/login", requestOptions)
     .then((response) => {
-        // Check if the response is ok
         if (!response.ok) {
-            throw new Error('Failed to fetch template');
+            {alert("Invalid email or password")}
+            return
         }
-        // Redirect to the /template route
+        return response.json(); // Parse response body as JSON
+    })
+    .then((data) => {
+        const token = data.token; // Extract token from response data
+        
+        if (!token) {
+            throw new Error('Token not found in response');
+        }
+
+        // Cache the token in local storage
+        localStorage.setItem('token', token);
         window.location.href = "/template";
     })
     .catch((error) => console.error(error));
-        console.log("HEY", localStorage.getItem('token'))
+    console.log("HEY", localStorage.getItem('token'))
 }
 
 async function signup() {
@@ -88,9 +79,9 @@ async function signup() {
         myHeaders.append("Content-Type", "application/json");
 
         const raw = JSON.stringify({
-        "name": `${username}`,
-        "email": `${email}`,
-        "password": `${password}`
+        "name": username,
+        "email": email,
+        "password": password
         });
 
         const requestOptions = {
@@ -100,9 +91,11 @@ async function signup() {
         redirect: "follow"
         };
 
-        await fetch("http://localhost:8080/api/users", requestOptions)
+        await fetch("http://52.158.43.53:8080/api/users/create", requestOptions)
         .then((response) => response.text())
-        .then((result) => console.log(result))
+        .then((result) => {
+            // window.location.href = "/template";
+        })
         .catch((error) => console.error(error));
 
         // window.location.href = "template";
