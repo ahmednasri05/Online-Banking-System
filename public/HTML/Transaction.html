@@ -14,7 +14,7 @@
     </a>
 <div class="container">
     <h1>Transfer Money</h1>
-    <form action="#">
+    <form action="/transactions" , method="post">
         <div class="form-group">
             <label for="sender">Sender Account Number:</label>
             <input type="text" id="sender" name="sender" placeholder="Enter sender's account number" required>
@@ -29,7 +29,7 @@
         </div>
         <div class="form-group">
             <label for="currency">Currency:</label>
-            <select id="currency" name="currency">
+            <select id="currency" name="currency" aria-placeholder="USD">
                 <option value="USD">USD</option>
                 <option value="EUR">EUR</option>
                 <option value="GBP">GBP</option>
@@ -38,14 +38,14 @@
         </div>
         <div class="form-group">
             <label for="transaction-type">Transaction Type:</label>
-            <select id="transaction-type" name="transaction-type">
+            <select id="transaction-type" name="transaction-type" aria-placeholder="transfer">
                 <option value="transfer">Transfer</option>
                 <option value="deposit">Deposit</option>
                 <option value="withdrawal">Withdrawal</option>
                 <!-- Add more transaction type options as needed -->
             </select>
         </div>
-        <button type="button" onclick="transfer()">Submit</button>      
+        <button type="submit">Proceed</button>      
     </form>
 </div>
             
