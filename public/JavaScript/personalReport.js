@@ -23,67 +23,70 @@ var userData = {
 };
 
 // Function to populate user's name
-function populateUsername() {
-
-    const myHeaders = new Headers();
-    myHeaders.append("x-auth-token", localStorage.getItem('token'));
-    myHeaders.append("Content-Type", "application/json");
-
-    var userFinalData
-    var userName
-    // Fetch user data using the token in the headers
-    fetch("http://52.158.43.53:8080/api/users/info", {
-        headers: myHeaders
+async function personalReport(app) {
+    app.get("/personal/report", async (req, res) => {
+        console.log("HELLO")
+        const myHeaders = new Headers();
+        myHeaders.append("'x-auth-token", req.cookies.token);
+        myHeaders.append("Content-Type", "application/json");
+       console.log("HERE", req.cookies.token)
+        var userFinalData
+        var userName
+        // Fetch user data using the token in the headers
+        fetch("http://52.158.43.53:8080/api/users/info", {
+            headers: myHeaders
+        })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch user data');
+            }
+            return response.json(); // Parse response body as JSON
+        })
+        .then((data) => {
+            console.log("User Data:", data.name); // Print user data to console
+            document.getElementById("username").textContent = data.name
+        })
+        .catch((error) => console.error(error));
+    
+    
+        const raw = "";
+        const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        // body: raw,
+        redirect: "follow"
+        };
+    
+        fetch("http://52.158.43.53:8080/api/transactions/fetch", requestOptions)
+        .then((response) => response.text())
+        .then((data) => {
+            const finalD = data
+            const obj = JSON.parse(data)
+    
+            var transactionContainer = document.getElementById("transactionContainer");
+    
+            //Clear existing transactions
+            transactionContainer.innerHTML = "";
+    
+            obj.forEach(function(transaction) {
+                var transactionItem = document.createElement("div");
+                transactionItem.classList.add("transaction-item");
+                transactionItem.innerHTML = `
+                    <p>Date: ${new Date(transaction.TransactionDate)}</p>
+                    <p>Merchant: ${userName}</p>
+                    <p>Expenses: $${transaction.TransactionAmount}</p>
+                `;
+                transactionContainer.appendChild(transactionItem);
+            });
+    
+        })
+        .catch((error) => console.error(error));
+      
+        document.getElementById("balance").textContent = userData.balance;
     })
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error('Failed to fetch user data');
-        }
-        return response.json(); // Parse response body as JSON
-    })
-    .then((data) => {
-        console.log("User Data:", data.name); // Print user data to console
-        document.getElementById("username").textContent = data.name
-    })
-    .catch((error) => console.error(error));
-
-
-    const raw = "";
-    const requestOptions = {
-    method: "GET",
-    headers: myHeaders,
-    // body: raw,
-    redirect: "follow"
-    };
-
-    fetch("http://52.158.43.53:8080/api/transactions/fetch", requestOptions)
-    .then((response) => response.text())
-    .then((data) => {
-        const finalD = data
-        const obj = JSON.parse(data)
-        var transactionContainer = document.getElementById("transactionContainer");
-        //Clear existing transactions
-        transactionContainer.innerHTML = "";
-        obj.forEach(function(transaction) {
-            var transactionItem = document.createElement("div");
-            transactionItem.classList.add("transaction-item");
-            transactionItem.innerHTML = `
-                <p>Date: ${new Date(transaction.TransactionDate)}</p>
-                <p>Merchant: ${userName}</p>
-                <p>Expenses: $${transaction.TransactionAmount}</p>
-            `;
-            transactionContainer.appendChild(transactionItem);
-        });
-
-    })
-    .catch((error) => console.error(error));
-  
-
-    // document.getElementById("username").textContent = userName;
-    document.getElementById("balance").textContent = userData.balance;
-
-
 }
+   
+   
 
 // Function to populate current balance
 function populateBalance() {
@@ -96,9 +99,10 @@ function populateTransactions() {
 }
 
 // Populate user data when the page loads
-window.onload = function() {
-    populateUsername();
-    //populateBalance();
-   // populateTransactions();
-};
+function initialize() {
+    personalReport();
+    // Other initialization logic here
+}
+initialize();
 
+module.exports = personalReport;
