@@ -1,5 +1,6 @@
 function transfer() {
 var receiver = document.getElementById("receiver").value;
+var receiverName = document.getElementById("receiverName").value;
 var amount = document.getElementById("amount").value;
 const myHeaders = new Headers();
 myHeaders.append("x-auth-token", localStorage.getItem('token'));
@@ -7,6 +8,7 @@ myHeaders.append("Content-Type", "application/json");
 
 const raw = JSON.stringify({
   "account": receiver,
+  "RecieverName": receiverName,
   "TransactionAmount": amount
 });
 

@@ -1,4 +1,4 @@
-// Sample data for demonstration
+
 var userData = {
     name: "John Doe",
     balance: 5000,
@@ -24,72 +24,81 @@ var userData = {
 
 // Function to populate user's name
 function populateUsername() {
-    document.getElementById("username").textContent = userData.name;
+
+    const myHeaders = new Headers();
+    myHeaders.append("x-auth-token", localStorage.getItem('token'));
+    myHeaders.append("Content-Type", "application/json");
+
+    var userFinalData
+    var userName
+    // Fetch user data using the token in the headers
+    fetch("http://52.158.43.53:8080/api/users/info", {
+        headers: myHeaders
+    })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch user data');
+        }
+        return response.json(); // Parse response body as JSON
+    })
+    .then((data) => {
+        console.log("User Data:", data.name); // Print user data to console
+        document.getElementById("username").textContent = data.name
+    })
+    .catch((error) => console.error(error));
+
+
+    const raw = "";
+    const requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    // body: raw,
+    redirect: "follow"
+    };
+
+    fetch("http://52.158.43.53:8080/api/transactions/fetch", requestOptions)
+    .then((response) => response.text())
+    .then((data) => {
+        const finalD = data
+        const obj = JSON.parse(data)
+        var transactionContainer = document.getElementById("transactionContainer");
+        //Clear existing transactions
+        transactionContainer.innerHTML = "";
+        obj.forEach(function(transaction) {
+            var transactionItem = document.createElement("div");
+            transactionItem.classList.add("transaction-item");
+            transactionItem.innerHTML = `
+                <p>Date: ${new Date(transaction.TransactionDate)}</p>
+                <p>Merchant: ${userName}</p>
+                <p>Expenses: $${transaction.TransactionAmount}</p>
+            `;
+            transactionContainer.appendChild(transactionItem);
+        });
+
+    })
+    .catch((error) => console.error(error));
+  
+
+    // document.getElementById("username").textContent = userName;
+    document.getElementById("balance").textContent = userData.balance;
+
+
 }
 
 // Function to populate current balance
 function populateBalance() {
-    document.getElementById("balance").textContent = userData.balance;
+   
 }
 
 // Function to populate transaction history
 function populateTransactions() {
-    var transactionContainer = document.getElementById("transactionContainer");
-    // Clear existing transactions
-    transactionContainer.innerHTML = "";
-
-    // Loop through transactions and create transaction items
-    userData.transactions.forEach(function(transaction) {
-        var transactionItem = document.createElement("div");
-        transactionItem.classList.add("transaction-item");
-        transactionItem.innerHTML = `
-            <p>Date: ${transaction.date}</p>
-            <p>Merchant: ${transaction.merchant}</p>
-            <p>Expenses: $${transaction.expenses}</p>
-        `;
-        transactionContainer.appendChild(transactionItem);
-    });
+   
 }
 
 // Populate user data when the page loads
 window.onload = function() {
     populateUsername();
-    populateBalance();
-    populateTransactions();
+    //populateBalance();
+   // populateTransactions();
 };
-// Function to populate transaction history
-// Function to populate transaction history
-function populateTransactions() {
-    var transactionContainer = document.getElementById("transactionContainer");
-    // Clear existing transactions
-    transactionContainer.innerHTML = "";
 
-    // Loop through transactions and create transaction items
-    userData.transactions.forEach(function(transaction) {
-        var transactionItem = document.createElement("div");
-        transactionItem.classList.add("transaction-item");
-
-        // Create transaction detail containers
-        var dateContainer = document.createElement("div");
-        dateContainer.classList.add("transaction-detail");
-        dateContainer.classList.add("transaction-date");
-        dateContainer.textContent = transaction.date;
-
-        var merchantContainer = document.createElement("div");
-        merchantContainer.classList.add("transaction-detail");
-        merchantContainer.classList.add("transaction-merchant");
-        merchantContainer.textContent = transaction.merchant;
-
-        var expensesContainer = document.createElement("div");
-        expensesContainer.classList.add("transaction-detail");
-        expensesContainer.classList.add("transaction-expenses");
-        expensesContainer.textContent = "$" + transaction.expenses;
-
-        // Append transaction details to transaction item
-        transactionItem.appendChild(dateContainer);
-        transactionItem.appendChild(merchantContainer);
-        transactionItem.appendChild(expensesContainer);
-
-        transactionContainer.appendChild(transactionItem);
-    });
-}
