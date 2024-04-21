@@ -11,6 +11,7 @@ const router = express.Router();
 
     const raw = JSON.stringify({
       account: receiver,
+      RecieverName: receiverName,
       TransactionAmount: amount,
     });
 

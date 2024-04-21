@@ -26,72 +26,99 @@ var userData = {
 };
 
 
-router.get("/", cookieAuth, async (req, res) => {
+// router.get("/", cookieAuth, async (req, res) => {
     
-    console.log("HELLO")
+//     console.log("HELLO")
 
-    const myHeaders = new Headers();
-    myHeaders.append("x-auth-token", req.cookies.token);
-    myHeaders.append("Content-Type", "application/json");
+//     const myHeaders = new Headers();
+//     myHeaders.append("x-auth-token", req.cookies.token);
+//     myHeaders.append("Content-Type", "application/json");
 
-    console.log("HERE", req.cookies.token)
-    var userName
-    // Fetch user data using the token in the headers
-    fetch("http://52.158.43.53:8080/api/users/info", {
-        headers: myHeaders
-    })
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error('Failed to fetch user data');
-        }
-        return response.json(); // Parse response body as JSON
-    })
-    .then((data) => {
-        console.log("User Data:", data.name); // Print user data to console
-        document.getElementById("username").textContent = data.name
-    })
-    .catch((error) => console.error(error));
+//     console.log("HERE", req.cookies.token)
+//     let userName
+//     // Fetch user data using the token in the headers
+//     fetch("http://52.158.43.53:8080/api/users/info", {
+//         headers: myHeaders
+//     })
+//     .then((response) => {
+//         if (!response.ok) {
+//             throw new Error('Failed to fetch user data');
+//         }
+//         return response.json(); // Parse response body as JSON
+//     })
+//     .then((data) => {
+//         const objData = JSON.parse(data)
+//         console.log("User Data:", data.name); // Print user data to console
+//         document.getElementById("username").textContent = data.name
+//         userName = objData.name
+//     })
+//     .catch((error) => console.error(error));
 
+//     const rootDir = path.dirname(require.main.filename);
+//     // Use the root directory to construct the file path to your HTML file
+//     const filePath = path.join(rootDir, 'public', 'CSS', 'personalReport.css');
+//     const raw = "";
+//     const requestOptions = {
+//     method: "GET",
+//     headers: myHeaders,
+//     // body: raw,
+//     redirect: "follow"
+//     };
 
-    const raw = "";
-    const requestOptions = {
-    method: "GET",
-    headers: myHeaders,
-    // body: raw,
-    redirect: "follow"
-    };
+//     fetch("http://52.158.43.53:8080/api/transactions/fetch", requestOptions)
+//     .then((response) => response.text())
+//     .then((data) => {
+//         console.log("Response Data:", data); 
+//         const obj = JSON.parse(data)
 
-    fetch("http://52.158.43.53:8080/api/transactions/fetch", requestOptions)
-    .then((response) => response.text())
-    .then((data) => {
-        console.log("Response Data:", data); 
-        const obj = JSON.parse(data)
+//         let html = `
+//             <!DOCTYPE html>
+//             <html lang="en">
+//             <head>
+//                 <meta charset="UTF-8">
+//                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//                 <title>Financial Dashboard</title>
+//                 <link rel="stylesheet" type="text/css" href="${filePath}">
+//             </head>
+//             <body>
+//                 <a href="/template" class="custom-icon">
+//                     <img src="../back.jpeg" alt="Custom Icon">
+//                 </a>
+//                 <div class="header">
+//                     <h1>Welcome, ${userName}!</h1>
+//                     <h2>Current Balance: $<span id="balance"></span></h2>
+//                 </div>
+//                 <div class="container">
+//                     <h2>Transaction History:</h2>
+//                     <div id="transactionContainer" class="transaction-container">`;
+        
+//         // Add transaction items
+//         obj.forEach(transaction => {
+//             html += `
+//                 <div class="transaction-item">
+//                     <p>Date: ${new Date(transaction.TransactionDate)}</p>
+//                     <p>Merchant: ${userName}</p>
+//                     <p>Expenses: $${transaction.TransactionAmount}</p>
+//                 </div>`;
+//         });
+//         console.log("THISISMYNAME", userName)
+//         // Close the HTML
+//         html += `
+//                     </div>
+//                 </div>
+//             </body>
+//             </html>`;
+         
+//          //res.set('Content-Type', 'text/css');
+//          res.send(html);
 
-        var transactionContainer = document.getElementById("transactionContainer");
+//     })
+//     .catch((error) => console.error(error));
 
-        //Clear existing transactions
-        transactionContainer.innerHTML = "";
-
-        obj.forEach(function(transaction) {
-            var transactionItem = document.createElement("div");
-            transactionItem.classList.add("transaction-item");
-            transactionItem.innerHTML = `
-                <p>Date: ${new Date(transaction.TransactionDate)}</p>
-                <p>Merchant: ${userName}</p>
-                <p>Expenses: $${transaction.TransactionAmount}</p>
-            `;
-            transactionContainer.appendChild(transactionItem);
-        });
-
-    })
-    .catch((error) => console.error(error));
-
-    const rootDir = path.dirname(require.main.filename);
-    // Use the root directory to construct the file path to your HTML file
-    const filePath = path.join(rootDir, 'public', 'HTML', 'personalReport.html');
-    res.sendFile(filePath);
+   
+//     //res.sendFile(filePath);
   
-})
+// })
         
       
 //window.onload = function() {

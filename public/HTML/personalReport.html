@@ -23,13 +23,31 @@
 </div>
 <script src="../JavaScript/personalReport.js">personalReport()</script>
 <script>
+
     window.onload = function() {
+        getCookie();
         fetchTransactions();
     };
-    function fetchTransactions() {
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+function fetchTransactions() {
         
     const myHeaders = new Headers();
-    myHeaders.append("x-auth-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjIwMTAyNDA5ODdhMDIyNzViODMxZmEiLCJpYXQiOjE3MTM3MjEzODMsImV4cCI6MTcxMzcyMjI4M30.3qlRwK0_34ZWK_OP3JVPBvYw7iF5qS2iDinOXMkh4IE");
+    myHeaders.append("x-auth-token", getCookie("token"));
     myHeaders.append("Content-Type", "application/json");
 
     //console.log("HERE", req.cookies.token)
@@ -74,8 +92,8 @@
             var transactionItem = document.createElement("div");
             transactionItem.classList.add("transaction-item");
             transactionItem.innerHTML = `
-                <p>Date: ${new Date(transaction.TransactionDate)}</p>
-                <p>Merchant: ${userName}</p>
+                <p>Date: ${transaction.TransactionDate}</p>
+                <p>Merchant: ${transaction.RecieverName}</p>
                 <p>Expenses: $${transaction.TransactionAmount}</p>
             `;
             transactionContainer.appendChild(transactionItem);
@@ -84,7 +102,7 @@
     })
     .catch((error) => console.error(error));
 
-    }
+}
 </script>                  
      
 </body>

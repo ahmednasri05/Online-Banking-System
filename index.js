@@ -37,9 +37,9 @@ app.get("/transactions", cookieAuth,function (req, res) {
   res.sendFile(__dirname + "/public/HTML/transaction.html");
 });
 
-// app.get("/personal/report", cookieAuth,function (req, res) {
-//   res.sendFile(__dirname + "/public/HTML/personalReport.html");
-// });
+app.get("/personal/report", cookieAuth,function (req, res) {
+  res.sendFile(__dirname + "/public/HTML/personalReport.html");
+});
 
 app.get("/customer/support", cookieAuth,function (req, res) {
   res.sendFile(__dirname + "/public/HTML/customerSupp.html");
