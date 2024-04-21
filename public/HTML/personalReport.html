@@ -14,6 +14,15 @@
 <div class="header">
     <h1>Welcome, <span id="username"></span>!</h1>
     <h2>Current Balance: $<span id="balance"></span></h2>
+    <div id="openModalBtn" class="text-button">set monthy budget</div>
+    <div id="inputModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <input type="text" id="userInput" placeholder="set budget.."> 
+            <button id="submitBtn">Submit</button>
+            <p id="errorText" class="error-message"></p>
+        </div>
+    </div>
 </div>
 <div class="container">
     <h2>Transaction History:</h2>

@@ -6,7 +6,7 @@ require("dotenv").config();
 const PORT = process.env.PORT || 3005;
 const cookieAuth = require("./middleware/auth.jwt.js");
 const transferMoney = require("./public/JavaScript/transactions.js");
-const personalReport = require("./public/JavaScript/personalReport.js");
+//const personalReport = require("./public/JavaScript/personalReport.js");
 
 app.use(express.static("public"));
 app.use(cookieParser());
@@ -50,7 +50,7 @@ signup(app)
 //transfer(app)
 //personalReport(app)
 app.use("/transactions", transferMoney);
-app.use("/personal/report", personalReport);
+//app.use("/personal/report", personalReport);
 const server = app.listen(PORT, function () {
   console.log(`Server is running on port ${PORT}`);
 });
