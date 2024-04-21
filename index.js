@@ -5,7 +5,7 @@ const { login, signup } = require("./public/JavaScript/login");
 require("dotenv").config();
 const PORT = process.env.PORT || 3005;
 const cookieAuth = require("./middleware/auth.jwt.js");
-const transfer = require("./public/JavaScript/transactions.js");
+const transferMoney = require("./public/JavaScript/transactions.js");
 const personalReport = require("./public/JavaScript/personalReport.js");
 
 app.use(express.static("public"));
@@ -37,9 +37,9 @@ app.get("/transactions", cookieAuth,function (req, res) {
   res.sendFile(__dirname + "/public/HTML/transaction.html");
 });
 
-app.get("/personal/report", cookieAuth,function (req, res) {
-  res.sendFile(__dirname + "/public/HTML/personalReport.html");
-});
+// app.get("/personal/report", cookieAuth,function (req, res) {
+//   res.sendFile(__dirname + "/public/HTML/personalReport.html");
+// });
 
 app.get("/customer/support", cookieAuth,function (req, res) {
   res.sendFile(__dirname + "/public/HTML/customerSupp.html");
@@ -47,8 +47,10 @@ app.get("/customer/support", cookieAuth,function (req, res) {
 
 login(app)
 signup(app)
-transfer(app)
-personalReport(app)
+//transfer(app)
+//personalReport(app)
+app.use("/transactions", transferMoney);
+app.use("/personal/report", personalReport);
 const server = app.listen(PORT, function () {
   console.log(`Server is running on port ${PORT}`);
 });

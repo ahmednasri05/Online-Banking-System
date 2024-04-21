@@ -1,4 +1,7 @@
-
+const express = require("express");
+const router = express.Router();
+const cookieAuth = require("../../middleware/auth.jwt");
+const path = require('path');
 var userData = {
     name: "John Doe",
     balance: 5000,
@@ -22,87 +25,77 @@ var userData = {
     ]
 };
 
-// Function to populate user's name
-async function personalReport(app) {
-    app.get("/personal/report", async (req, res) => {
-        console.log("HELLO")
-        const myHeaders = new Headers();
-        myHeaders.append("'x-auth-token", req.cookies.token);
-        myHeaders.append("Content-Type", "application/json");
-       console.log("HERE", req.cookies.token)
-        var userFinalData
-        var userName
-        // Fetch user data using the token in the headers
-        fetch("http://52.158.43.53:8080/api/users/info", {
-            headers: myHeaders
-        })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error('Failed to fetch user data');
-            }
-            return response.json(); // Parse response body as JSON
-        })
-        .then((data) => {
-            console.log("User Data:", data.name); // Print user data to console
-            document.getElementById("username").textContent = data.name
-        })
-        .catch((error) => console.error(error));
+
+router.get("/", cookieAuth, async (req, res) => {
     
-    
-        const raw = "";
-        const requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        // body: raw,
-        redirect: "follow"
-        };
-    
-        fetch("http://52.158.43.53:8080/api/transactions/fetch", requestOptions)
-        .then((response) => response.text())
-        .then((data) => {
-            const finalD = data
-            const obj = JSON.parse(data)
-    
-            var transactionContainer = document.getElementById("transactionContainer");
-    
-            //Clear existing transactions
-            transactionContainer.innerHTML = "";
-    
-            obj.forEach(function(transaction) {
-                var transactionItem = document.createElement("div");
-                transactionItem.classList.add("transaction-item");
-                transactionItem.innerHTML = `
-                    <p>Date: ${new Date(transaction.TransactionDate)}</p>
-                    <p>Merchant: ${userName}</p>
-                    <p>Expenses: $${transaction.TransactionAmount}</p>
-                `;
-                transactionContainer.appendChild(transactionItem);
-            });
-    
-        })
-        .catch((error) => console.error(error));
-      
-        document.getElementById("balance").textContent = userData.balance;
+    console.log("HELLO")
+
+    const myHeaders = new Headers();
+    myHeaders.append("x-auth-token", req.cookies.token);
+    myHeaders.append("Content-Type", "application/json");
+
+    console.log("HERE", req.cookies.token)
+    var userName
+    // Fetch user data using the token in the headers
+    fetch("http://52.158.43.53:8080/api/users/info", {
+        headers: myHeaders
     })
-}
-   
-   
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch user data');
+        }
+        return response.json(); // Parse response body as JSON
+    })
+    .then((data) => {
+        console.log("User Data:", data.name); // Print user data to console
+        document.getElementById("username").textContent = data.name
+    })
+    .catch((error) => console.error(error));
 
-// Function to populate current balance
-function populateBalance() {
-   
-}
 
-// Function to populate transaction history
-function populateTransactions() {
-   
-}
+    const raw = "";
+    const requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    // body: raw,
+    redirect: "follow"
+    };
 
-// Populate user data when the page loads
-function initialize() {
-    personalReport();
-    // Other initialization logic here
-}
-initialize();
+    fetch("http://52.158.43.53:8080/api/transactions/fetch", requestOptions)
+    .then((response) => response.text())
+    .then((data) => {
+        console.log("Response Data:", data); 
+        const obj = JSON.parse(data)
 
-module.exports = personalReport;
+        var transactionContainer = document.getElementById("transactionContainer");
+
+        //Clear existing transactions
+        transactionContainer.innerHTML = "";
+
+        obj.forEach(function(transaction) {
+            var transactionItem = document.createElement("div");
+            transactionItem.classList.add("transaction-item");
+            transactionItem.innerHTML = `
+                <p>Date: ${new Date(transaction.TransactionDate)}</p>
+                <p>Merchant: ${userName}</p>
+                <p>Expenses: $${transaction.TransactionAmount}</p>
+            `;
+            transactionContainer.appendChild(transactionItem);
+        });
+
+    })
+    .catch((error) => console.error(error));
+
+    const rootDir = path.dirname(require.main.filename);
+    // Use the root directory to construct the file path to your HTML file
+    const filePath = path.join(rootDir, 'public', 'HTML', 'personalReport.html');
+    res.sendFile(filePath);
+  
+})
+        
+      
+//window.onload = function() {
+//     personalReport();
+// };
+module.exports = router;
+//module.exports = personalReport;

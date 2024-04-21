@@ -1,8 +1,8 @@
 const express = require("express");
+const router = express.Router();
 
-
-async function transfer(app) {
-  app.post("/transactions", async (req, res) => {
+//async function transfer(app) {
+  router.post("/", async (req, res) => {
     console.log("Hello")
     const {sender, receiver, receiverName, amount } = req.body;
     const myHeaders = new Headers();
@@ -37,7 +37,7 @@ async function transfer(app) {
       })
       .catch((error) => console.error(error));
   });
-}
+//}
 
-
-module.exports = transfer;
+module.exports = router;
+// module.exports = transfer;

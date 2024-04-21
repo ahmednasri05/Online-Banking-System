@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Bank dashboard concept</title>
+    <title>Bank Dashboard</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" /> 
-    <link rel="stylesheet" href="../CSS/testing.css" />                  
+    <link rel="stylesheet" href="../CSS/testing.css" /> 
+    <script src="../JavaScript/template.js">populateUsername()</script>               
   </head>
   <body>
     <div class="app">
@@ -52,7 +53,7 @@
                     <span>View Report</span>
                   </h3>
                 </div>
-                <a href="/personal/report">
+                <a id="reportLink" href="/personal/report">View Report</a>
                   <span>Go to service</span>
                   <span class="icon-button">
                     <i class="ph-caret-right-bold"></i>
@@ -86,13 +87,12 @@
         
       </div>
     </div>
-    
-    <script src="https://unpkg.com/phosphor-icons"></script>
-        
-<script defer type="text/javascript" id="chatbot-initials-script" src="https://chat-bbl.noform.ai/script-chatbot.js"
+    <script>populateUsername()</script>
+    <!-- <script src="https://unpkg.com/phosphor-icons"></script>
+      
+    <script defer type="text/javascript" id="chatbot-initials-script" src="https://chat-bbl.noform.ai/script-chatbot.js"
     data-server-url="https://app.noform.ai"
-    data-bot-id="661fd1353ba824a2e8ce069f"></script>
+    data-bot-id="661fd1353ba824a2e8ce069f"></script> -->
        
-    <script src="../JavaScript/template.js"></script>
   </body>
 </html>
