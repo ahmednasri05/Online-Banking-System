@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Bank dashboard concept</title>
+    <title>Bank Dashboard</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" /> 
-    <link rel="stylesheet" href="../CSS/testing.css" />                  
+    <link rel="stylesheet" href="../CSS/testing.css" /> 
+    <script src="../JavaScript/template.js">populateUsername()</script>               
   </head>
   <body>
     <div class="app">
@@ -19,9 +20,7 @@
        
         <div class="app-header-actions">
           <button class="user-profile">
-            <span>Matheo Peterson</span>
-            <span>
-            </span>
+            <h1> Welcome back, <span id="username"></span> !</h1>
           </button>
  
       </header>
@@ -82,19 +81,64 @@
             <div class="service-section-footer">   
               <!-- <p>Services are paid according to the current state of the currency and tariff.</p>  -->
               <p>Designed and created by ASU online Software Team.</p>
-              <p class="rights">All Right reserved</p>
+              <p class="rights">All rights are reserved</p>
             </div>
           </section>
         </div>
         
       </div>
     </div>
+    <script>populateUsername()</script>
+    <script>
+     window.onload = function() {
+        templateUserName()
+        getCookie()
+    };
     
-    <script src="https://unpkg.com/phosphor-icons"></script>
-        
-<script defer type="text/javascript" id="chatbot-initials-script" src="https://chat-bbl.noform.ai/script-chatbot.js"
+  function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+  }
+  return "";
+}
+    //console.log("HERE", req.cookies.token)
+   function templateUserName() {
+   console.log(getCookie("token"))
+    const myHeaders = new Headers();
+    myHeaders.append("x-auth-token", getCookie("token"));
+    myHeaders.append("Content-Type", "application/json");
+     // Fetch user data using the token in the headers
+     fetch("http://52.158.43.53:8080/api/users/info", {
+        headers: myHeaders
+    })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch user data');
+        }
+        return response.json(); // Parse response body as JSON
+    })
+    .then((data) => {
+        console.log("User Data:", data.name); // Print user data to console
+        document.getElementById("username").textContent = data.name
+    })
+    .catch((error) => console.error(error));
+   }
+   
+    </script>
+    <!-- <script src="https://unpkg.com/phosphor-icons"></script>
+      
+    <script defer type="text/javascript" id="chatbot-initials-script" src="https://chat-bbl.noform.ai/script-chatbot.js"
     data-server-url="https://app.noform.ai"
-    data-bot-id="661fd1353ba824a2e8ce069f"></script>
-                  
+    data-bot-id="661fd1353ba824a2e8ce069f"></script> -->
+       
   </body>
 </html>
