@@ -38,6 +38,7 @@
         fetchTransactions();
         dateFormat();
     };
+
 function dateFormat(dateString) {
     const date = new Date(dateString);
     const day = date.getDate().toString().padStart(2, '0');
@@ -63,12 +64,12 @@ function getCookie(cname) {
 }
 
 function fetchTransactions() {
-        
+    //Prepare the headers to all requests   
     const myHeaders = new Headers();
     myHeaders.append("x-auth-token", getCookie("token"));
     myHeaders.append("Content-Type", "application/json");
 
-    // Fetch user data using the token in the headers
+    // Fetch user name
     fetch("http://52.158.43.53:8080/api/users/info", {
         headers: myHeaders
     })
@@ -79,11 +80,11 @@ function fetchTransactions() {
         return response.json(); // Parse response body as JSON
     })
     .then((data) => {
-        console.log("User Data:", data.name); // Print user data to console
         document.getElementById("username").textContent = data.name
     })
     .catch((error) => console.error(error));
 
+    //Request info
     const raw = "";
     const requestOptions = {
     method: "GET",
@@ -92,6 +93,7 @@ function fetchTransactions() {
     redirect: "follow"
     };
 
+    //Get current user balance
     fetch("http://52.158.43.53:8080/api/balance/fetch", requestOptions)
     .then((response) => response.text())
     .then((data) => {
@@ -101,12 +103,11 @@ function fetchTransactions() {
     .catch((error) => console.error(error));
 
    
-
+    //Get all user transactions
     fetch("http://52.158.43.53:8080/api/transactions/fetch", requestOptions)
     .then((response) => response.text())
     .then((data) => {
         const obj = JSON.parse(data)
-
         var transactionContainer = document.getElementById("transactionContainer");
 
         //Clear existing transactions
