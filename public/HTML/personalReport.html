@@ -4,31 +4,45 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Financial Dashboard</title>
-<link rel="stylesheet" type="text/css" href="../CSS/personalReport.css">
+<link rel="stylesheet" type="text/css" href="../CSS/styles.css">
 </head>
 <body>
-    <a href="/template" class="custom-icon">
-        <!-- You can use an image or any other HTML element for your custom icon -->
-        <img src="../back.jpeg" alt="Custom Icon">
-    </a>
-<div class="header">
-    <h1>Welcome, <span id="username"></span>!</h1>
-    <h2>Current Balance: $<span id="balance"></span></h2>
-    <div id="openModalBtn" class="text-button">set monthy budget</div>
-    <div id="inputModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <input type="text" id="userInput" placeholder="set budget.."> 
-            <button id="submitBtn">Submit</button>
-            <p id="errorText" class="error-message"></p>
-        </div>
+  <div class="filler">
+    <h1><span id="username"></span> </h1>
+   
+    <div class="balancecontainer">
+      <div class="balance-animation"></div>
+      <div class="balance-box">
+        <span class="balance-text">Your Balance: $</span><span id="balance" class="balance-value"></span>
+      </div>
+    </div>
+  
+    <body>
+        <a href="template" class="custom-icon">
+            <!-- You can use an image or any other HTML element for your custom icon -->
+            <img src="../back.jpeg" alt="Custom Icon">
+        </a>
+
+</div>
+  
+<div class="container">
+    <div id="transactionContainer" class="transaction-container">
+       
     </div>
 </div>
-<div class="container">
-    <h2>Transaction History:</h2>
-    <div id="transactionContainer" class="transaction-container">
-        <!-- Transaction items will be added dynamically here -->
-    </div>
+<div class="card">
+  <div class="card__info">
+      <div class="card__logo">MasterCard</div>
+        <div class="card__number" id="card-number">
+          <span class="card__digit-group">Card Number</span> 
+      </div>
+      <div class="card__exp-date" id="card-expiry">
+          <time datetime="">Expiry Date</time> 
+      </div>
+        <div id="card-username" class="card__name" aria-label="Dee Stroyer"></div>
+        <div class="card__vendor" role="img" aria-labelledby="card-vendor">
+        <span id="card-vendor" class="card__vendor-sr">Mastercard</span>
+              </div>
 </div>
 <script src="../JavaScript/personalReport.js">personalReport()</script>
 <script>
@@ -68,7 +82,7 @@ function fetchTransactions() {
     const myHeaders = new Headers();
     myHeaders.append("x-auth-token", getCookie("token"));
     myHeaders.append("Content-Type", "application/json");
-
+    console.log("Token", getCookie("token"))
     // Fetch user name
     fetch("http://52.158.43.53:8080/api/users/info", {
         headers: myHeaders
@@ -109,18 +123,30 @@ function fetchTransactions() {
     .then((data) => {
         const obj = JSON.parse(data)
         var transactionContainer = document.getElementById("transactionContainer");
-
+        console.log("Obj", obj)
         //Clear existing transactions
         transactionContainer.innerHTML = "";
 
         obj.forEach(function(transaction) {
             var transactionItem = document.createElement("div");
             transactionItem.classList.add("transaction-item");
-            transactionItem.innerHTML = `
-                <p>Date: ${dateFormat(transaction.TransactionDate)}</p>
-                <p>Merchant: ${transaction.RecieverName}</p>
-                <p>Expenses: $${transaction.TransactionAmount}</p>
-            `;
+            transactionItem.innerHTML = `\
+        <span class="title"> ${transaction.RecieverName}</span>
+        <div class="transaction-title">💵 Price: $${transaction.TransactionAmount}
+        </div>  <p class="date">📆 Purchased On: ${dateFormat(transaction.TransactionDate)}
+        <div class="tools">
+    <div class="circle">
+      <span class="red box"></span>
+    </div>
+    <div class="circle">
+      <span class="yellow box"></span>
+    </div>
+    <div class="circle">
+      <span class="green box"></span>
+    </div>
+  </div>
+</div>
+        `;
             transactionContainer.appendChild(transactionItem);
         });
 
