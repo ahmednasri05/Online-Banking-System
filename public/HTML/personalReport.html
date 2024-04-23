@@ -31,18 +31,18 @@
     </div>
 </div>
 <div class="card">
-  <div class="card__info">
-      <div class="card__logo">MasterCard</div>
-        <div class="card__number" id="card-number">
-          <span class="card__digit-group">Card Number</span> 
-      </div>
-      <div class="card__exp-date" id="card-expiry">
-          <time datetime="">Expiry Date</time> 
-      </div>
-        <div id="card-username" class="card__name" aria-label="Dee Stroyer"></div>
-        <div class="card__vendor" role="img" aria-labelledby="card-vendor">
-        <span id="card-vendor" class="card__vendor-sr">Mastercard</span>
-              </div>
+    <div class="card__info">
+        <div class="card__logo">MasterCard</div>
+          <div class="card__number" id="card-number">
+            <span class="card__digit-group">Card Number</span> 
+        </div>
+        <div class="card__exp-date" id="card-expiry">
+            <time datetime="">08/27</time> 
+        </div>
+          <div id="card-username" class="card__name" aria-label="Dee Stroyer"></div>
+          <div class="card__vendor" role="img" aria-labelledby="card-vendor">
+          <span id="card-vendor" class="card__vendor-sr">Mastercard</span>
+    </div>
 </div>
 <script src="../JavaScript/personalReport.js">personalReport()</script>
 <script>
@@ -95,6 +95,7 @@ function fetchTransactions() {
     })
     .then((data) => {
         document.getElementById("username").textContent = data.name
+        document.getElementById("card-username").textContent = data.name
     })
     .catch((error) => console.error(error));
 
