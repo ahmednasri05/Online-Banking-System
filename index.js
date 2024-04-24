@@ -26,7 +26,7 @@ app.get("/home", cookieAuth,function (req, res) {
   res.sendFile(__dirname + "/public/HTML/home.html");
 });
 
-app.get("/template", cookieAuth, function (req, res, next) {
+app.get("/template",  cookieAuth, function (req, res, next) {
   res.sendFile(__dirname + "/public/HTML/template.html");
 });
 

@@ -8,7 +8,7 @@
 </head>
 <body>
   <div class="filler">
-    <h1><span id="username"></span> </h1>
+    <h1>Financial Dashboard: <span id="username"></span> </h1>
    
     <div class="balancecontainer">
       <div class="balance-animation"></div>
@@ -19,7 +19,6 @@
   
     <body>
         <a href="/template" class="custom-icon">
-            <!-- You can use an image or any other HTML element for your custom icon -->
             <img src="../back.jpeg" alt="Custom Icon">
         </a>
 
@@ -34,7 +33,7 @@
     <div class="card__info">
         <div class="card__logo">MasterCard</div>
           <div class="card__number" id="card-number">
-            <span class="card__digit-group">Card Number</span> 
+            <span class="card__digit-group">Card Number><span id="card"></span></span> 
         </div>
         <div class="card__exp-date" id="card-expiry">
             <time datetime="">08/27</time> 
@@ -96,6 +95,7 @@ function fetchTransactions() {
     .then((data) => {
         document.getElementById("username").textContent = data.name
         document.getElementById("card-username").textContent = data.name
+        document.getElementById("card-number").textContent = data.card
     })
     .catch((error) => console.error(error));
 

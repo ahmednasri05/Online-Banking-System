@@ -1,57 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="..\CSS\transaction.css" rel="stylesheet">
-    <script src="../JavaScript/transactions.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="..\CSS\transaction.css" rel="stylesheet" />
     <title>Online Banking - Money Transfer</title>
-</head>
-<body>
+  </head>
+  <body>
     <a href="template" class="custom-icon">
-        <!-- You can use an image or any other HTML element for your custom icon -->
-        <img src="../back.jpeg" alt="Custom Icon">
+      <!-- You can use an image or any other HTML element for your custom icon -->
+      <img src="../back.jpeg" alt="Custom Icon" />
     </a>
-<div class="container">
-    <h1>Transfer Money</h1>
-    <form action="/transactions" , method="post">
+    <div class="container">
+      <h1>Transfer Money</h1>
+      <form action="/transactions" , method="post">
         <div class="form-group">
-            <label for="sender">Sender Account Number:</label>
-            <input type="text" id="sender" name="sender" placeholder="Enter sender's account number" required>
+            <label for="sender-Name">Username: <span id="username"></span></label>
+          </div>
+        <div class="form-group">
+          <label for="sender">Card Number: <span id="cardnumber"></span></label>
         </div>
         <div class="form-group">
-            <label for="receiver">Receiver Account Number:</label>
-            <input type="text" id="receiver" name="receiver" placeholder="Enter receiver's account number" required>
+          <label for="receiver">Receiver Account Number:</label>
+          <input
+            type="text"
+            id="receiver"
+            name="receiver"
+            required
+          />
         </div>
         <div class="form-group">
-            <label for="receiverName">Receiver Name:</label>
-            <input type="text" id="receiverName" name="receiverName" placeholder="Enter receiver's name" required>
+          <label for="receiverName">Receiver Name:</label>
+          <input
+            type="text"
+            id="receiverName"
+            name="receiverName"
+            required
+          />
         </div>
         <div class="form-group">
-            <label for="amount">Amount to Transfer:</label>
-            <input type="number" id="amount" name="amount" placeholder="Enter amount" min="0" required>
+          <label for="amount">Amount to Transfer:</label>
+          <input
+            type="number"
+            id="amount"
+            name="amount"
+            placeholder="Enter amount"
+            min="0"
+            required
+          />
         </div>
+
         <div class="form-group">
-            <label for="currency">Currency:</label>
-            <select id="currency" name="currency" aria-placeholder="USD">
-                <option value="USD">USD</option>
-                <option value="EUR">EUR</option>
-                <option value="GBP">GBP</option>
-                <!-- Add more currency options as needed -->
-            </select>
+          <label for="transaction-type">Transaction Type:</label>
+          <select id="type" name="type" aria-placeholder="transfer">
+            <option value="pay">Pay</option>
+            <option value="transfer">Transfer</option>
+            <!-- Add more transaction type options as needed -->
+          </select>
         </div>
-        <div class="form-group">
-            <label for="transaction-type">Transaction Type:</label>
-            <select id="transaction-type" name="transaction-type" aria-placeholder="transfer">
-                <option value="transfer">Transfer</option>
-                <option value="deposit">Deposit</option>
-                <option value="withdrawal">Withdrawal</option>
-                <!-- Add more transaction type options as needed -->
-            </select>
-        </div>
-        <button type="submit">Proceed</button>      
-    </form>
-</div>
-            
-</body>
+        <button type="submit">Proceed</button>
+      </form>
+    </div>
+    <script>
+      window.onload = function () {
+        templateUserName();
+        getCookie();
+      };
+
+      function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(";");
+        for (let i = 0; i < ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) == " ") {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+      //console.log("HERE", req.cookies.token)
+      function templateUserName() {
+        const myHeaders = new Headers();
+        myHeaders.append("x-auth-token", getCookie("token"));
+        myHeaders.append("Content-Type", "application/json");
+        // Fetch user data using the token in the headers
+        fetch("http://52.158.43.53:8080/api/users/info", {
+          headers: myHeaders,
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Failed to fetch user data");
+            }
+            return response.json(); // Parse response body as JSON
+          })
+          .then((data) => {
+            document.getElementById("username").textContent = data.name;
+            document.getElementById("cardnumber").textContent = data.card;
+          })
+          .catch((error) => console.error(error));
+      }
+    </script>
+  </body>
 </html>
