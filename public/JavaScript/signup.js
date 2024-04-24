@@ -32,9 +32,11 @@ router.post("/", async (req, res) => {
     .then((response) => {
       if (!response.ok) {
         {
-          return res.status(403).json({
-              error: "Invalid Field, Please enter valid data",
-            });
+          console.log("Hello")
+          document.getElementById('alert').style.display = 'flex';
+          // return res.status(403).json({
+          //     error: "Invalid Field, Please enter valid data",
+          //   });
         }
       }
       return response.json(); 
