@@ -48,7 +48,7 @@ app.get("/customer/support", cookieAuth,function (req, res) {
 
 app.use("/transactions", transferMoney);
 app.use("/login", login);
-app.use("/signup", signup);
+//app.use("/signup", signup);
 
 const server = app.listen(PORT, function () {
   console.log(`Server is running on port ${PORT}`);

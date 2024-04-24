@@ -82,7 +82,6 @@ function fetchTransactions() {
     const myHeaders = new Headers();
     myHeaders.append("x-auth-token", getCookie("token"));
     myHeaders.append("Content-Type", "application/json");
-    console.log("Token", getCookie("token"))
     // Fetch user name
     fetch("http://52.158.43.53:8080/api/users/info", {
         headers: myHeaders
@@ -94,6 +93,7 @@ function fetchTransactions() {
         return response.json(); // Parse response body as JSON
     })
     .then((data) => {
+        console.log("NAME", data.name)
         document.getElementById("username").textContent = data.name
         document.getElementById("card-username").textContent = data.name
     })

@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Login | Online Banking Website</title>
-        <link href="../CSS/signup.css" rel="stylesheet">
-        <script src="../JavaScript/login.js"></script>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <title>Login | Online Banking Website</title>
+    <link href="../CSS/signup.css" rel="stylesheet">
+    <script src="../JavaScript/signup.js"></script>
+</head>
 <body>
     <div>
-        <h1 className="title">Online Banking System</h1>
+        <h1 class="title">Online Banking System</h1>
+        <div class="warning" id="alert">
+            <div class="warning__icon">
+                <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m13 14h-2v-5h2zm0 4h-2v-2h2zm-12 3h22l-11-19z" fill="#393a37"></path></svg>
+            </div>
+            <div class="warning__title">Invalid Email or password</div>
+            <div class="warning__close" onclick="closeAlert()">
+                <svg height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z" fill="#393a37"></path>
+                </svg>
+            </div>
+        </div>
         <div class="container">
             <h2>Create Account</h2>
             <form id="login-form" action="/signup" method="post">
@@ -24,19 +35,8 @@
                     <label for="password">Password:</label>
                     <input type="text" id="password" name="password" placeholder="password" required/>
                 </div>
-                <button type="submit">Create Account</button>
+                <button type="button" onclick="signUp()">Create Account</button>
             </form>
-        </div>
-    </div>
-    <div class="warning" id="alert">
-        <div class="warning__icon">
-            <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m13 14h-2v-5h2zm0 4h-2v-2h2zm-12 3h22l-11-19z" fill="#393a37"></path></svg>
-        </div>
-        <div class="warning__title">Invalid Email or password</div>
-        <div class="warning__close" onclick="closeAlert()">
-            <svg height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
-                <path d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z" fill="#393a37"></path>
-            </svg>
         </div>
     </div>
     <script>
