@@ -30,11 +30,12 @@ function signUp () {
     .then((response) => {
       if (!response.ok) {
         {
-          var alert = document.getElementById('alert');
-          alert.style.display = 'flex';
-          // return res.status(403).json({
-          //     error: "Invalid Field, Please enter valid data",
-          //   });
+          if (!response.ok) {
+            return response.json().then((data) => {
+              throw new Error(data.error);
+          });
+        }
+        return response.json(); // Parse response body as JSON
         }
       }
       return response.json(); 
@@ -45,7 +46,14 @@ function signUp () {
       }
       
     })
-    .catch((error) => console.log("error", error));
+    .catch((error) => {
+      console.error("Error status:", error.status);
+      console.error("Error:", error.message);
+      document.getElementById('warning__title').textContent = error.message;
+      var alert = document.getElementById('alert');
+      alert.style.background = '#FF0000';
+      alert.style.display = 'flex';
+    });
 }
 
 function closeAlert() {
