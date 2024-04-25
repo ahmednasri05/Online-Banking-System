@@ -56,24 +56,32 @@ function transact() {
       if (!response.ok) {
         {
           if (!response.ok) {
-            throw new Error('Transaction failed');
+            return response.json().then((data) => {
+              throw new Error(data.error);
+          });
         }
         return response.json(); // Parse response body as JSON
         }
       }
     })
     .then((result) => {
-      const obj = JSON.parse(result)
-      res.redirect("/template");
+      document.getElementById('warning__title').textContent = "Transaction Completed";
+      var alert = document.getElementById('alert');
+      alert.style.background = '#00FF00';
+      alert.style.display = 'flex';
+      setTimeout(() => {
+        window.location.href = "/template";
+    }, 2000);
+
     })
     .catch((error) => {
         console.error("Error status:", error.status);
+        console.error("Error:", error.message);
+        document.getElementById('warning__title').textContent = error.message;
+        var alert = document.getElementById('alert');
+        alert.style.background = '#FF0000';
+        alert.style.display = 'flex';
     });
-    var alert = document.getElementById('alert');
-    alert.style.display = 'flex';
-    setTimeout(() => {
-      window.location.href = "/template";
-  }, 2000);
 };
 
 function templateUserName() {
