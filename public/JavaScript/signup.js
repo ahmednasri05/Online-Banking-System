@@ -10,7 +10,6 @@ function signUp () {
   //Prepare the request header
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  console.log("HELL", username, email, password)
  //Build the object
   const raw = JSON.stringify({
     name: username,
@@ -31,7 +30,6 @@ function signUp () {
     .then((response) => {
       if (!response.ok) {
         {
-          console.log("Hello", response.json)
           var alert = document.getElementById('alert');
           alert.style.display = 'flex';
           // return res.status(403).json({
@@ -50,5 +48,8 @@ function signUp () {
     .catch((error) => console.log("error", error));
 }
 
-
+function closeAlert() {
+  var alert = document.getElementById('alert');
+  alert.style.display = 'none';
+}
 

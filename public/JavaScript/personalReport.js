@@ -1,4 +1,8 @@
-
+window.onload = function() {
+    getCookie();
+    fetchTransactions();
+    dateFormat();
+};
 
 const openModalBtn = document.getElementById('openModalBtn');
 const modal = document.getElementById('inputModal');
@@ -40,3 +44,106 @@ submitBtn.addEventListener('click', () => {
         errorText.textContent = 'Please enter a valid integer.';
     }
 });
+
+
+function dateFormat(dateString) {
+const date = new Date(dateString);
+const day = date.getDate().toString().padStart(2, '0');
+const month = (date.getMonth() + 1).toString().padStart(2, '0');
+const year = date.getFullYear();
+return `${day}/${month}/${year}`;
+}
+
+function getCookie(cname) {
+let name = cname + "=";
+let decodedCookie = decodeURIComponent(document.cookie);
+let ca = decodedCookie.split(';');
+for(let i = 0; i <ca.length; i++) {
+let c = ca[i];
+while (c.charAt(0) == ' ') {
+  c = c.substring(1);
+}
+if (c.indexOf(name) == 0) {
+  return c.substring(name.length, c.length);
+}
+}
+return "";
+}
+
+function fetchTransactions() {
+//Prepare the headers to all requests   
+const myHeaders = new Headers();
+myHeaders.append("x-auth-token", getCookie("token"));
+myHeaders.append("Content-Type", "application/json");
+// Fetch user name
+fetch("http://52.158.43.53:8080/api/users/info", {
+    headers: myHeaders
+})
+.then((response) => {
+    if (!response.ok) {
+        throw new Error('Failed to fetch user data');
+    }
+    return response.json(); // Parse response body as JSON
+})
+.then((data) => {
+    document.getElementById("username").textContent = data.name
+    document.getElementById("card-username").textContent = data.name
+    document.getElementById("card-number").textContent = data.card
+})
+.catch((error) => console.error(error));
+
+//Request info
+const raw = "";
+const requestOptions = {
+method: "GET",
+headers: myHeaders,
+// body: raw,
+redirect: "follow"
+};
+
+//Get current user balance
+fetch("http://52.158.43.53:8080/api/balance/fetch", requestOptions)
+.then((response) => response.text())
+.then((data) => {
+    const obj = JSON.parse(data)
+    document.getElementById("balance").textContent = obj.Balance
+})
+.catch((error) => console.error(error));
+
+
+//Get all user transactions
+fetch("http://52.158.43.53:8080/api/transactions/fetch", requestOptions)
+.then((response) => response.text())
+.then((data) => {
+    const obj = JSON.parse(data)
+    var transactionContainer = document.getElementById("transactionContainer");
+    //Clear existing transactions
+    transactionContainer.innerHTML = "";
+
+    obj.forEach(function(transaction) {
+        var transactionItem = document.createElement("div");
+        transactionItem.classList.add("transaction-item");
+        transactionItem.innerHTML = `\
+            <span class="title"> ${transaction.RecieverName}</span>
+            <div class="transaction-title">💵 Price: $${transaction.TransactionAmount}
+            </div>  <p class="date">📆 Purchased On: ${dateFormat(transaction.TransactionDate)}
+            <div class="tools">
+        <div class="circle">
+        <span class="red box"></span>
+        </div>
+        <div class="circle">
+        <span class="yellow box"></span>
+        </div>
+        <div class="circle">
+        <span class="green box"></span>
+        </div>
+        </div>
+        </div>
+    `;
+        transactionContainer.appendChild(transactionItem);
+    });
+
+})
+.catch((error) => console.error(error));
+
+}

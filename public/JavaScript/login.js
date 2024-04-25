@@ -2,14 +2,15 @@ const express = require("express");
 const router = express.Router();
 
 
+function logIn() {
 
+}
 router.post("/", async (req, res) => {
 
   //Get the user input from HTML
   //Info is inside req.body because it is
   //a request to this api /signup
   const { email, password } = req.body;
-  console.log("HERE", email, password)
   //Prepare the request header
   const myHeaders = new Headers();
    myHeaders.append("Content-Type", "application/json");

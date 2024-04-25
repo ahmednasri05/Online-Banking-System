@@ -18,6 +18,7 @@ const cookieAuth =  async (req, res, next) => {
         if (!response.ok) {
           {
             res.clearCookie("token");
+            res.clearCookie("card");
             return res.redirect("/");
           }
         }
@@ -27,6 +28,7 @@ const cookieAuth =  async (req, res, next) => {
           return next();
         } else {
             res.clearCookie("token");
+            res.clearCookie("card");
             return res.redirect("/");
         }
       })
@@ -35,6 +37,7 @@ const cookieAuth =  async (req, res, next) => {
     next();
   } catch (err) {
     await res.clearCookie("token");
+    await res.clearCookie("card");
     return res.redirect("/");
   }
 };

@@ -1,46 +1,40 @@
-const { userData } = require("./userData");
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Get the link element
-    console.log("Event listener")
-    const reportLink = document.getElementById('reportLink');
-    
-    // Add click event listener to the link
-    reportLink.addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent the default behavior of the link
-        
-        // Perform a GET request to the /personal/report endpoint
-        fetch('/personal/report')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch personal report');
-                }
-                // Optionally, handle the response here
-                return response.text();
-            })
-            .then(data => {
-                // Optionally, handle the data here
-                console.log(data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    });
-});
-
-async function getCookie(key) {
-    var keyValue = await  document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
-    return keyValue ? keyValue[2] : null;
-}
-
-let user = userData(getCookie('token'))
-console.log(user)
-function populateUsername() {
-    console.log("HELLO")
-    document.getElementById("username").textContent = "Shady";
-}
-
 window.onload = function() {
-    populateUsername();
+    templateUserName()
+    getCookie()
 };
+  function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+  }
+  return "";
+}
+
+   function templateUserName() {
+    const myHeaders = new Headers();
+    myHeaders.append("x-auth-token", getCookie("token"));
+    myHeaders.append("Content-Type", "application/json");
+    console.log("Token", getCookie("token"))
+     // Fetch user data using the token in the headers
+     fetch("http://52.158.43.53:8080/api/users/info", {
+        headers: myHeaders
+    })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch user data');
+        }
+        return response.json(); // Parse response body as JSON
+    })
+    .then((data) => {
+        document.getElementById("username").textContent = data.name
+    })
+    .catch((error) => console.error(error));
+   }

@@ -6,13 +6,23 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:900" rel="stylesheet">
         <link href="../CSS/login.css" rel="stylesheet">
         <script src="../JavaScript/login.js"></script>
-        <div class="text-container">
-            <h1>ASU Online Bank</h1>
-          </div>
     </head>
 <body>
     <div>
-       
+        <div class="text-container">
+            <h1>ASU Online Bank</h1>
+          </div>
+        <div class="warning" id="alert">
+            <div class="warning__icon">
+                <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m13 14h-2v-5h2zm0 4h-2v-2h2zm-12 3h22l-11-19z" fill="#393a37"></path></svg>
+            </div>
+            <div class="warning__title">Invalid Email or password</div>
+            <div class="warning__close" onclick="closeAlert()">
+                <svg height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z" fill="#393a37"></path>
+                </svg>
+            </div>
+        </div>
         <div class="container">
             <h2>Login</h2>
             <form id="login-form" action="/login" method="post">
@@ -24,7 +34,7 @@
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required/>
                 </div>
-                <button type="submit" >Login</button>
+                <button type="submit">Sign In</button>
             </form>
             <form id="login-form" action="/signup" method="get">
                 <div class="button-sign">
@@ -33,8 +43,11 @@
             </form>
         </div>
     </div>
-                            
-
-                
+    <script>
+        function closeAlert() {
+            var alert = document.getElementById('alert');
+            alert.style.display = 'none';
+        }
+    </script>           
 </body>
 </html>

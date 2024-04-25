@@ -4,10 +4,7 @@ const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const PORT = process.env.PORT || 3005;
 const cookieAuth = require("./middleware/auth.jwt.js");
-const transferMoney = require("./public/JavaScript/transactions.js");
 const login = require("./public/JavaScript/login.js");
-const signup = require("./public/JavaScript/signup.js");
-//const personalReport = require("./public/JavaScript/personalReport.js");
 
 app.use(express.static("public"));
 app.use(cookieParser());
@@ -26,7 +23,7 @@ app.get("/home", cookieAuth,function (req, res) {
   res.sendFile(__dirname + "/public/HTML/home.html");
 });
 
-app.get("/template", cookieAuth, function (req, res, next) {
+app.get("/template",  cookieAuth, function (req, res, next) {
   res.sendFile(__dirname + "/public/HTML/template.html");
 });
 
@@ -46,9 +43,7 @@ app.get("/customer/support", cookieAuth,function (req, res) {
   res.sendFile(__dirname + "/public/HTML/customerSupp.html");
 });
 
-app.use("/transactions", transferMoney);
 app.use("/login", login);
-//app.use("/signup", signup);
 
 const server = app.listen(PORT, function () {
   console.log(`Server is running on port ${PORT}`);
