@@ -3,7 +3,7 @@ const cookieAuth =  async (req, res, next) => {
   try {
     const myHeaders = new Headers();
     myHeaders.append("x-auth-token", token);
-
+    console.log("Tokenn", token)
     const raw = "";
 
     const requestOptions = {
