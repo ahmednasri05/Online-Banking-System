@@ -2,9 +2,6 @@ const express = require("express");
 const router = express.Router();
 
 
-function logIn() {
-
-}
 router.post("/", async (req, res) => {
 
   //Get the user input from HTML
