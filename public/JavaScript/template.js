@@ -70,6 +70,42 @@ submitBtn.addEventListener('click', () => {
         // Input is an integer
         // You can handle the submission logic here
         console.log("Submitted value:", inputValue);
+        const myHeaders = new Headers();
+        myHeaders.append("x-auth-token", getCookie("token"));
+        myHeaders.append("Content-Type", "application/json");
+
+        const raw = JSON.stringify({
+        "cardNumber": 8978384915241121,
+        "limit": inputValue
+        });
+
+        const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+        };
+            const getRequestOptions = {
+            method: "GET",
+            headers: myHeaders,
+            redirect: "follow"
+            };
+        
+        fetch("http://52.158.43.53:8080/api/users/info", getRequestOptions)
+        .then((response) => response.text())
+        .then((data) => {
+            const newRaw = JSON.stringify({
+                "cardNumber": data.card,
+                "limit": inputValue
+            });
+            requestOptions.body = newRaw;
+        })
+        .catch((error) => console.error(error));
+
+        fetch("http://52.158.43.53:8080/api/balance/budget", requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.error(error));
         // Clear error message if any
         errorText.textContent = '';
         // Close the modal
