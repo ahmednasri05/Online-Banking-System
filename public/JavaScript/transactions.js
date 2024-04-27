@@ -70,7 +70,7 @@ function transact() {
       alert.style.background = '#00FF00';
       alert.style.display = 'flex';
       setTimeout(() => {
-        window.location.href = "/template";
+        window.location.href = "/home";
     }, 2000);
 
     })

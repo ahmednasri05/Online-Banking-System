@@ -58,7 +58,7 @@ function generateReviewItems(reviews) {
     
 }
 
-function save() {
+async function save() {
   let review = document.getElementById("reviewContent").value;
   const myHeaders = new Headers();
   const token = getCookie("token");
@@ -79,7 +79,7 @@ function save() {
     body: raw,
     redirect: "follow",
   };
-  fetch("http://52.158.43.53:8080/api/users/info", {
+  await fetch("http://52.158.43.53:8080/api/users/info", {
         headers: myHeaders
     })
     .then((response) => {
@@ -97,10 +97,11 @@ function save() {
         document.getElementById("username").textContent = data.name
     })
     .catch((error) => console.error(error));
-  fetch("http://52.158.43.53:8080/api/reviews/create", requestOptions)
+ await fetch("http://52.158.43.53:8080/api/reviews/create", requestOptions)
     .then((response) => response.text())
     .then((result) => console.log(result))
     .catch((error) => console.error(error));
+     location.reload();
 }
 
 function getUsername() {

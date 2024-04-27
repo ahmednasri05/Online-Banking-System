@@ -47,7 +47,7 @@ router.post("/", async (req, res) => {
         
         res.cookie("token", token);
 
-        return res.redirect("/template");   
+        return res.redirect("/home");   
 
       })
       .catch((error) => console.error(error));
